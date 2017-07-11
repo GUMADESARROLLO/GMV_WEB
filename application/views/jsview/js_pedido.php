@@ -24,7 +24,7 @@
             var table = $('#tblPedidos').DataTable();
             table.search(this.value).draw();
         });
-    function getview(id,cliente,vendedor,estado) {
+    function getview(id,cliente,codcliente,vendedor,estado) {
         var estadoText;
         switch(estado){
             case "1":
@@ -52,7 +52,7 @@
         $("#datosPedido").hide();
         $('#loadIMG').show();
         $('#codPedido').text(id);
-        $('#codCliente').text(cliente);
+        $('#codCliente').text(cliente+" (" + codcliente+")");
         $('#codVendedor').text(vendedor);
         $('#total').text("Espere...");
         limpiarTabla(TbDetalleFactura);
@@ -106,6 +106,26 @@
                 success:
                 function(comen){
                     $("#observaciones").html(comen);
+                }
+            });
+            var numero = $("#disponible").text(disponible);
+            $.ajax({
+                url:"MostrarCredito/"+codcliente,
+                async:true,
+                success:function(disponible)
+                {
+                    if(numero >= total)
+                    {
+                        numero.html(" C$ "+addCommas(disponible)).css("color","blue");
+                        $("#credito").css("color","blue");
+                        $("#btnProcesar").show();
+                    }
+                    else if(numero < total)
+                    {
+                        numero.html(" C$ "+addCommas(disponible)).css("color","red");
+                        $("#credito").css("color","red");
+                        $("#btnProcesar").hide();
+                    }
                 }
             });
             $.ajax({
