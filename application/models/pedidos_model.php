@@ -291,7 +291,7 @@ class Pedidos_model extends CI_Model
         } else {
             foreach ($Array as $row) {
                 //$json['data'][$i]['DISPONIBLE'] = $row['DISPONIBLE'];
-                echo $row['DISPONIBLE'];
+                echo number_format($row['DISPONIBLE'],2);
                 $i++;
             }
         }

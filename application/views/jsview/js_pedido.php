@@ -116,8 +116,7 @@
                 {
                     if(numero >= total)
                     {
-                        numero.html(" C$ "+addCommas(disponible)).css("color","blue");
-                        $("#credito").css("color","blue");
+                        numero.html(" C$ "+addCommas(disponible))
                         $("#btnProcesar").show();
                     }
                     else if(numero < total)
