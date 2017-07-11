@@ -259,7 +259,7 @@ class Pedidos_model extends CI_Model
                 $json['data'][$i]['MONTO'] = number_format($key['MONTO'],4);
                 $json['data'][$i]['ESTADO'] = $estado;
                 $json['data'][$i]['ICONO'] = $estado2;
-                $json['data'][$i]['VER'] = "<a  onclick='getview(".'"'.$key['IDPEDIDO'].'"'.",".'"'.$key['NOMBRE']." ".$key['CLIENTE'].'"'.",".'"'.$key['VENDEDOR'].'"'.",".'"'.$key['ESTADO'].'"'.")' href='#' class='noHover'><i class='material-icons'>&#xE417;</i></a>";
+                $json['data'][$i]['VER'] = "<a  onclick='getview(".'"'.$key['IDPEDIDO'].'"'.",".'"'.$key['NOMBRE'].'"'.",".'"'.$key['CLIENTE'].'"'.",".'"'.$key['VENDEDOR'].'"'.",".'"'.$key['ESTADO'].'"'.")' href='#' class='noHover'><i class='material-icons'>&#xE417;</i></a>";
                 $i++;
             }    
         }else{
@@ -276,6 +276,28 @@ class Pedidos_model extends CI_Model
         }
         //echo $consulta;
         echo json_encode($json);
+    }
+
+    public function MostrarCreditos($cli)
+    {
+        $Array = $this->sqlsrv -> fetchArray("SELECT DISPONIBLE FROM GMV_Clientes WHERE CLIENTE='".$cli."'",SQLSRV_FETCH_ASSOC); 
+        $json = array();
+        $i=0;
+
+         if (count($Array)==0) {
+                $json['data'][$i]['DISPONIBLE'] = NULL;
+                echo 0;
+                
+        } else {
+            foreach ($Array as $row) {
+                //$json['data'][$i]['DISPONIBLE'] = $row['DISPONIBLE'];
+                echo $row['DISPONIBLE'];
+                $i++;
+            }
+        }
+        $this->sqlsrv->close();
+        //return $json;
+        
     }
 
 }

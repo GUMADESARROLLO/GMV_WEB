@@ -103,7 +103,7 @@
                                     }
                                 echo"<td class='regular'>".$estado."</td>";
                                 echo"<td class='regular'>".$estado2."</td>";
-                                echo  "<td class='regular'><a  onclick='getview(".'"'.$key['IDPEDIDO'].'"'.",".'"'.$key['NOMBRE']." ".$key['CLIENTE'].'"'.",".'"'.$key['VENDEDOR'].'"'.",".'"'.$key['ESTADO'].'"'.")' href='#' class='noHover'><i class='material-icons'>&#xE417;</i></a>
+                                echo  "<td class='regular'><a  onclick='getview(".'"'.$key['IDPEDIDO'].'"'.",".'"'.$key['NOMBRE'].'"'.",".'"'.$key['CLIENTE'].'"'.",".'"'.$key['VENDEDOR'].'"'.",".'"'.$key['ESTADO'].'"'.")' href='#' class='noHover'><i class='material-icons'>&#xE417;</i></a>
                                 </tr>";
                             }
                         }
@@ -217,6 +217,10 @@
             <div class="col s3 offset-s10 Mcolor valign-wrapper left">
                     <p class="negra">TOTAL: </p>
                 <p id="total" class="bold breadcrumbs-title">0.00</p>
+            </div>
+              <div class="col s3 offset-s10 Mcolor valign-wrapper left">
+                    <p class="negra" id="credito">CREDITO: </p>
+                <p id="disponible" class="bold breadcrumbs-title">0.00</p>
             </div>
         </div>
         <div class="row">
