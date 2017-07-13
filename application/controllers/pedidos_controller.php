@@ -69,9 +69,9 @@ class Pedidos_controller extends CI_Controller
     {
         $this->pedidos_model->ajaxPedidoSearch($_POST['f1'],$_POST['f2'],$_POST['tipo']);
     }
-    public function MostrarCredito($id)
+    public function MostrarCredito($id,$pedido)
     {
-        $this->pedidos_model->MostrarCreditos($id);
+        $this->pedidos_model->MostrarCreditos($id,$pedido);
     }
 }
 ?>

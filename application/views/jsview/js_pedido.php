@@ -26,6 +26,7 @@
         });
     function getview(id,cliente,codcliente,vendedor,estado) {
         var estadoText;
+        var total=0;     
         switch(estado){
             case "1":
                 estadoText = "RECIBIDO";
@@ -40,7 +41,7 @@
                 estadoText = "ANULADO";
         }
         $("#spanEstado").text(estadoText);
-
+        
         $("#btnProcesar").show();
         $("#btnAnular").show();
         if (estado >= 3) {
@@ -90,7 +91,7 @@
                 $('#TbDetalleFactura').show();
                 $('#loadIMG').hide();
                 $("#datosPedido").show();
-                var total=0;
+        
                     obj = $('#TbDetalleFactura').DataTable();
                     obj.rows().data().each( function (index,value) {                        
                         var subtotal = obj.row(value).data().TOTAL.replace(",", "");
@@ -108,25 +109,29 @@
                     $("#observaciones").html(comen);
                 }
             });
-            var numero = $("#disponible").text(disponible);
-            $.ajax({
-                url:"MostrarCredito/"+codcliente,
-                async:true,
-                success:function(disponible)
-                {
-                    if(numero >= total)
+             
+            var numero = $("#disponible").html(disponible);
+            
+                $.ajax({
+                    url:"MostrarCredito/"+codcliente+"/"+id,
+                    async:true,
+                    success: function(disponible)
                     {
-                        numero.html(" C$ "+addCommas(disponible))
-                        $("#btnProcesar").show();
+                        var resultado = disponible.split("||");
+                        var credito = resultado[0];
+                        
+                        if (resultado[1]=="1"){
+                            numero.html(" C$ "+(credito)).css("color","red");
+                            $("#btnProcesar").hide();
+                        }else{
+                            numero.html(" C$ "+(credito)).css("color","#6a4ad5");
+                            if (estado == 1 || estado == 2){
+                                $("#btnProcesar").show();
+                            }
+                        }
                     }
-                    else if(numero < total)
-                    {
-                        numero.html(" C$ "+addCommas(disponible)).css("color","red");
-                        $("#credito").css("color","red");
-                        $("#btnProcesar").hide();
-                    }
-                }
-            });
+                });
+            
             $.ajax({
                 url: "ajaxPedidoComenAnu/"+id,
                 async:true,

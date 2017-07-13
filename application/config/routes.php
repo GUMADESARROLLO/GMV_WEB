@@ -30,7 +30,7 @@ $route['ajaxPedidoComenAnu/(:any)']='pedidos_controller/ajaxPedidoComenAnu/$1';
 $route['ajaxAnulacion']='pedidos_controller/ajaxAnulacion';
 $route['ajaxConfirmacion']='pedidos_controller/ajaxConfirmacion';
 $route['ajaxPedidoSearch']='pedidos_controller/ajaxPedidoSearch';
-$route['MostrarCredito/(:any)'] = 'pedidos_controller/MostrarCredito/$1';
+$route['MostrarCredito/(:any)/(:any)'] = 'pedidos_controller/MostrarCredito/$1/$2';
 
 /* COBROS */
 $route['cobros'] = 'cobros_controller';
