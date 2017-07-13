@@ -278,25 +278,27 @@ class Pedidos_model extends CI_Model
         echo json_encode($json);
     }
 
-    public function MostrarCreditos($cli)
+    public function MostrarCreditos($cli,$pedido)
     {
+        $bandera = 0;
+        $credito = 0;
+        $total = 0;
         $Array = $this->sqlsrv -> fetchArray("SELECT DISPONIBLE FROM GMV_Clientes WHERE CLIENTE='".$cli."'",SQLSRV_FETCH_ASSOC); 
         $json = array();
         $i=0;
 
-         if (count($Array)==0) {
-                $json['data'][$i]['DISPONIBLE'] = NULL;
-                echo 0;
-                
-        } else {
-            foreach ($Array as $row) {
-                //$json['data'][$i]['DISPONIBLE'] = $row['DISPONIBLE'];
-                echo number_format($row['DISPONIBLE'],2);
-                $i++;
-            }
+         if (count($Array)>0) {
+                foreach ($Array as $row) {
+                $credito = $row['DISPONIBLE'];
+            }          
+        } $this->db->where('IDPEDIDO',$pedido);
+        $query = $this->db->get('pedido');
+
+        if ($query->result_array()[0]['MONTO'] >= $credito) {
+            $bandera = 1;
         }
+        echo number_format($row['DISPONIBLE'],2)."||".$bandera;
         $this->sqlsrv->close();
-        //return $json;
         
     }
 
